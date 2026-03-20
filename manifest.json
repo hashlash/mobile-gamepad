@@ -21,9 +21,9 @@
   ],
   "screenshots": [
     {
-      "src": "icons/screenshot-1.svg",
-      "sizes": "1280x720",
-      "type": "image/svg+xml",
+      "src": "icons/screenshot-1.png",
+      "sizes": "844x390",
+      "type": "image/png",
       "form_factor": "wide",
       "label": "Gamepad Interface"
     }
