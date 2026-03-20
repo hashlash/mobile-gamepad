@@ -1,0 +1,10 @@
+<svg width="1280" height="720" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="720" fill="#121212" />
+  <circle cx="200" cy="450" r="100" fill="#2c2c2c" />
+  <circle cx="200" cy="450" r="40" fill="#4a4a4a" />
+  <circle cx="1000" cy="450" r="50" fill="#03dac6" />
+  <text x="1000" y="457" font-family="Arial" font-size="24" text-anchor="middle" fill="#fff">A</text>
+  <circle cx="1080" cy="370" r="50" fill="#cf6679" />
+  <text x="1080" y="377" font-family="Arial" font-size="24" text-anchor="middle" fill="#fff">B</text>
+  <text x="640" y="360" font-family="Arial" font-size="48" text-anchor="middle" fill="#fff">Mobile Gamepad</text>
+</svg>

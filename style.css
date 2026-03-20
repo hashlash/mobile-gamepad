@@ -1,0 +1,245 @@
+:root {
+    /* Default (Dark) variables */
+    --bg-color: #121212;
+    --text-color: #e0e0e0;
+    --stick-base-color: #2c2c2c;
+    --stick-knob-color: #4a4a4a;
+    --btn-color: #3d3d3d;
+    --btn-text: #ffffff;
+    --btn-shadow: #1a1a1a;
+    --accent-color: #bb86fc;
+    --btn-a: #03dac6;
+    --btn-b: #cf6679;
+    --btn-x: #3700b3;
+    --btn-y: #ffd700;
+}
+
+/* Light Theme */
+.theme-light {
+    --bg-color: #f0f0f0;
+    --text-color: #333333;
+    --stick-base-color: #d1d1d1;
+    --stick-knob-color: #ffffff;
+    --btn-color: #e0e0e0;
+    --btn-text: #333333;
+    --btn-shadow: #b0b0b0;
+    --accent-color: #6200ee;
+    --btn-a: #018786;
+    --btn-b: #b00020;
+    --btn-x: #3700b3;
+    --btn-y: #ffab00;
+}
+
+/* Retro Theme (Classic Gamepad style) */
+.theme-retro {
+    --bg-color: #dcdcdc;
+    --text-color: #333;
+    --stick-base-color: #a9a9a9;
+    --stick-knob-color: #2f4f4f;
+    --btn-color: #b22222; /* Red buttons */
+    --btn-text: #fff;
+    --btn-shadow: #800000;
+    --accent-color: #00008b;
+    --btn-a: #b22222;
+    --btn-b: #b22222;
+    --btn-x: #b22222;
+    --btn-y: #b22222;
+}
+
+/* Reset and Global styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+    touch-action: none; /* Prevent browser handling of touch */
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Main Container */
+#gamepad-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.control-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    height: 100%;
+}
+
+/* Joystick Styles */
+#joystick-base {
+    width: 150px;
+    height: 150px;
+    background-color: var(--stick-base-color);
+    border-radius: 50%;
+    position: relative;
+    box-shadow: inset 0 4px 8px rgba(0,0,0,0.3);
+}
+
+#joystick-knob {
+    width: 60px;
+    height: 60px;
+    background-color: var(--stick-knob-color);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    transition: transform 0.05s linear;
+}
+
+/* Action Button Styles */
+.button-grid {
+    display: grid;
+    grid-template-areas:
+        ". Y ."
+        "X . B"
+        ". A .";
+    gap: 15px;
+    transform: rotate(15deg); /* Slight tilt for ergonomics */
+}
+
+.action-btn {
+    width: 70px;
+    height: 70px;
+    background-color: var(--btn-color);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 20px;
+    color: var(--btn-text);
+    box-shadow: 0 6px 0 var(--btn-shadow);
+    transition: transform 0.1s, box-shadow 0.1s;
+    cursor: pointer;
+}
+
+.action-btn:active, .action-btn.pressed {
+    transform: translateY(4px);
+    box-shadow: 0 2px 0 var(--btn-shadow);
+}
+
+#btn-a { grid-area: A; background-color: var(--btn-a); }
+#btn-b { grid-area: B; background-color: var(--btn-b); }
+#btn-x { grid-area: X; background-color: var(--btn-x); }
+#btn-y { grid-area: Y; background-color: var(--btn-y); }
+
+/* Top Controls */
+#controls-top {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.control-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+}
+
+#status-indicator {
+    font-size: 10px;
+    background-color: rgba(0,0,0,0.3);
+    padding: 2px 8px;
+    border-radius: 10px;
+    letter-spacing: 1px;
+}
+
+/* Modal Styles */
+#settings-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: var(--bg-color);
+    padding: 30px;
+    border-radius: 20px;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border: 1px solid var(--accent-color);
+}
+
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.setting-item label {
+    font-weight: bold;
+}
+
+select, button.primary-btn {
+    padding: 8px 16px;
+    border-radius: 8px;
+    background: var(--btn-color);
+    color: var(--btn-text);
+    border: 1px solid var(--accent-color);
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Orientation Suggestion */
+@media screen and (orientation: portrait) {
+    #gamepad-container::after {
+        content: "Please rotate your device to landscape mode 📱";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: var(--bg-color);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 2000;
+        font-size: 20px;
+        text-align: center;
+        padding: 40px;
+    }
+}

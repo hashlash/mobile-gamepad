@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#121212">
+    <title>Mobile Gamepad</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icons/icon-192.svg">
+</head>
+<body class="theme-system">
+    <div id="gamepad-container">
+        <!-- Left Side: Joystick -->
+        <div id="left-stick-area" class="control-area">
+            <div id="joystick-base">
+                <div id="joystick-knob"></div>
+            </div>
+        </div>
+
+        <!-- Right Side: Action Buttons -->
+        <div id="action-buttons-area" class="control-area">
+            <div class="button-grid">
+                <div id="btn-y" class="action-btn" data-btn="Y">Y</div>
+                <div id="btn-x" class="action-btn" data-btn="X">X</div>
+                <div id="btn-b" class="action-btn" data-btn="B">B</div>
+                <div id="btn-a" class="action-btn" data-btn="A">A</div>
+            </div>
+        </div>
+
+        <!-- Center/Top: Controls & Settings -->
+        <div id="controls-top">
+            <button id="settings-toggle" class="control-btn" aria-label="Settings">⚙️</button>
+            <div id="status-indicator">OFFLINE</div>
+        </div>
+
+        <!-- Settings Modal -->
+        <div id="settings-modal" class="hidden">
+            <div class="modal-content">
+                <h2>Settings</h2>
+                <div class="setting-item">
+                    <label for="theme-select">Theme:</label>
+                    <select id="theme-select">
+                        <option value="system">System</option>
+                        <option value="light">Light</option>
+                        <option value="dark">Dark</option>
+                        <option value="retro">Retro</option>
+                    </select>
+                </div>
+                <div class="setting-item">
+                    <label for="haptic-toggle">Haptic Feedback:</label>
+                    <input type="checkbox" id="haptic-toggle" checked>
+                </div>
+                <button id="close-settings" class="primary-btn">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
