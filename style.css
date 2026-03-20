@@ -8,42 +8,42 @@
     --btn-text: #ffffff;
     --btn-shadow: #1a1a1a;
     --accent-color: #bb86fc;
-    --btn-a: #03dac6;
-    --btn-b: #cf6679;
-    --btn-x: #3700b3;
-    --btn-y: #ffd700;
+    --btn-a: #018786; /* Darker teal for better contrast with white text */
+    --btn-b: #b00020; /* Darker red */
+    --btn-x: #3700b3; /* Deep blue */
+    --btn-y: #f9a825; /* Darker amber/yellow */
 }
 
 /* Light Theme */
 .theme-light {
-    --bg-color: #f0f0f0;
-    --text-color: #333333;
-    --stick-base-color: #d1d1d1;
+    --bg-color: #f5f5f5;
+    --text-color: #212121;
+    --stick-base-color: #e0e0e0;
     --stick-knob-color: #ffffff;
-    --btn-color: #e0e0e0;
-    --btn-text: #333333;
-    --btn-shadow: #b0b0b0;
+    --btn-color: #eeeeee;
+    --btn-text: #212121;
+    --btn-shadow: #bdbdbd;
     --accent-color: #6200ee;
-    --btn-a: #018786;
-    --btn-b: #b00020;
-    --btn-x: #3700b3;
-    --btn-y: #ffab00;
+    --btn-a: #004d40; /* Very dark teal for contrast with light theme if needed */
+    --btn-b: #b71c1c;
+    --btn-x: #1a237e;
+    --btn-y: #f57f17;
 }
 
 /* Retro Theme (Classic Gamepad style) */
 .theme-retro {
-    --bg-color: #dcdcdc;
-    --text-color: #333;
-    --stick-base-color: #a9a9a9;
-    --stick-knob-color: #2f4f4f;
-    --btn-color: #b22222; /* Red buttons */
-    --btn-text: #fff;
-    --btn-shadow: #800000;
-    --accent-color: #00008b;
-    --btn-a: #b22222;
-    --btn-b: #b22222;
-    --btn-x: #b22222;
-    --btn-y: #b22222;
+    --bg-color: #c0c0c0;
+    --text-color: #000000;
+    --stick-base-color: #808080;
+    --stick-knob-color: #404040;
+    --btn-color: #a00000;
+    --btn-text: #ffffff;
+    --btn-shadow: #600000;
+    --accent-color: #000080;
+    --btn-a: #a00000;
+    --btn-b: #a00000;
+    --btn-x: #a00000;
+    --btn-y: #a00000;
 }
 
 /* Reset and Global styles */
@@ -143,10 +143,14 @@ body {
     box-shadow: 0 2px 0 var(--btn-shadow);
 }
 
-#btn-a { grid-area: A; background-color: var(--btn-a); }
-#btn-b { grid-area: B; background-color: var(--btn-b); }
-#btn-x { grid-area: X; background-color: var(--btn-x); }
-#btn-y { grid-area: Y; background-color: var(--btn-y); }
+#btn-a { grid-area: A; background-color: var(--btn-a); color: #ffffff; }
+#btn-b { grid-area: B; background-color: var(--btn-b); color: #ffffff; }
+#btn-x { grid-area: X; background-color: var(--btn-x); color: #ffffff; }
+#btn-y { grid-area: Y; background-color: var(--btn-y); color: var(--btn-text); }
+
+/* Theme specific overrides for specific buttons if needed */
+.theme-dark #btn-y, .theme-light #btn-y { color: #000000; } /* Black text for yellow/amber buttons */
+.theme-retro #btn-y { color: #ffffff; } /* White text for red buttons in retro theme */
 
 /* Top Controls */
 #controls-top {
@@ -170,10 +174,12 @@ body {
 
 #status-indicator {
     font-size: 10px;
-    background-color: rgba(0,0,0,0.3);
+    background-color: rgba(0,0,0,0.6); /* Darker background for better contrast */
+    color: #ffffff;
     padding: 2px 8px;
     border-radius: 10px;
     letter-spacing: 1px;
+    font-weight: bold;
 }
 
 /* Modal Styles */

@@ -1,12 +1,13 @@
 const CACHE_NAME = 'gamepad-cache-v1';
 const ASSETS = [
-  '/',
-  '/index.html',
-  '/style.css',
-  '/app.js',
-  '/manifest.json',
-  '/icons/icon-192.svg',
-  '/icons/icon-512.svg'
+  './',
+  './index.html',
+  './style.css',
+  './app.js',
+  './manifest.json',
+  './icons/icon-192.svg',
+  './icons/icon-512.svg',
+  './icons/screenshot-1.png'
 ];
 
 self.addEventListener('install', (event) => {
