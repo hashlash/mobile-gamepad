@@ -1,2 +1,3 @@
-# mobile-gamepad
-Use your phone as a game controller for your PC
+# Mobile Gamepad
+
+This is a project for using mobile phones as simple game controllers for multiplayer games on Linux. The idea is that a Linux machine hosts a web page that players can open on their phones over the local network, and each connected phone acts as its own controller. The project is intended to focus first on local Wi‑Fi play and a lightweight web-based experience, with an emphasis on keeping the interface simple and easy to access. It is currently an early-stage project and should be understood as an exploration of this approach rather than a finished or fully supported system.
