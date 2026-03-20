@@ -120,7 +120,6 @@ body {
         "X . B"
         ". A .";
     gap: 15px;
-    transform: rotate(15deg); /* Slight tilt for ergonomics */
 }
 
 .action-btn {
