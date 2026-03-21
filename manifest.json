@@ -28,11 +28,11 @@
       "label": "Joystick - Xbox Layout - Dark Theme"
     },
     {
-      "src": "screenshots/dpad-retro-red.webp",
+      "src": "screenshots/dpad-xbox-retro.webp",
       "sizes": "844x390",
       "type": "image/webp",
       "form_factor": "wide",
-      "label": "D-pad - Retro Theme"
+      "label": "D-pad - Xbox Layout - Retro Theme"
     }
   ]
 }
