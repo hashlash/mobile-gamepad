@@ -106,14 +106,23 @@ document.addEventListener('DOMContentLoaded', () => {
     closeSettings.addEventListener('click', () => settingsModal.classList.add('hidden'));
 
     // --- Fullscreen Logic ---
-    fullscreenToggle.addEventListener('click', () => {
-        if (!document.fullscreenElement) {
-            document.documentElement.requestFullscreen().catch(err => {
-                console.error(`Error attempting to enable fullscreen: ${err.message}`);
-            });
+    fullscreenToggle.addEventListener('change', () => {
+        if (fullscreenToggle.checked) {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    console.error(`Error attempting to enable fullscreen: ${err.message}`);
+                    fullscreenToggle.checked = false;
+                });
+            }
         } else {
-            document.exitFullscreen();
+            if (document.fullscreenElement) {
+                document.exitFullscreen();
+            }
         }
+    });
+
+    document.addEventListener('fullscreenchange', () => {
+        fullscreenToggle.checked = !!document.fullscreenElement;
     });
 
     // --- Joystick Logic ---
