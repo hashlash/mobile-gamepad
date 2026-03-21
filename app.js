@@ -35,15 +35,23 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Service Worker Registration ---
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('sw.js')
-            .then(() => {
-                statusIndicator.innerText = 'ONLINE';
-                statusIndicator.style.color = '#03dac6';
-            })
-            .catch(() => {
-                statusIndicator.innerText = 'OFFLINE';
-                statusIndicator.style.color = '#cf6679';
-            });
+            .catch(err => console.error('SW registration failed:', err));
     }
+
+    // --- Connectivity Status ---
+    function updateOnlineStatus() {
+        if (navigator.onLine) {
+            statusIndicator.innerText = 'ONLINE';
+            statusIndicator.style.color = '#03dac6';
+        } else {
+            statusIndicator.innerText = 'OFFLINE';
+            statusIndicator.style.color = '#cf6679';
+        }
+    }
+
+    window.addEventListener('online', updateOnlineStatus);
+    window.addEventListener('offline', updateOnlineStatus);
+    updateOnlineStatus();
 
     // --- Haptic Feedback ---
     function triggerHaptic(type = 'light') {
@@ -249,19 +257,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Action Button Logic ---
     actionButtons.forEach(btn => {
-        const btnId = btn.getAttribute('data-btn');
-
         btn.addEventListener('touchstart', (e) => {
             e.preventDefault();
             btn.classList.add('pressed');
             triggerHaptic('light');
-            console.log(`Button Pressed: ${btnId}`);
+            const currentBtnId = btn.getAttribute('data-btn');
+            console.log(`Button Pressed: ${currentBtnId}`);
         });
 
         btn.addEventListener('touchend', (e) => {
             e.preventDefault();
             btn.classList.remove('pressed');
-            console.log(`Button Released: ${btnId}`);
+            const currentBtnId = btn.getAttribute('data-btn');
+            console.log(`Button Released: ${currentBtnId}`);
         });
 
         btn.addEventListener('touchcancel', (e) => {

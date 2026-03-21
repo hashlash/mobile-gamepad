@@ -7,10 +7,10 @@
     <title>Mobile Gamepad</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" href="icons/icon-192.svg">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
 </head>
 <body class="theme-system">
     <div id="gamepad-container">
@@ -63,38 +63,40 @@
         <div id="settings-modal" class="hidden">
             <div class="modal-content">
                 <h2>Settings</h2>
-                <div class="setting-item">
-                    <label for="theme-select">Theme:</label>
-                    <select id="theme-select">
-                        <option value="system">System</option>
-                        <option value="light">Light</option>
-                        <option value="dark">Dark</option>
-                        <option value="retro">Retro</option>
-                    </select>
-                </div>
-                <div class="setting-item">
-                    <label for="control-select">Left Control:</label>
-                    <select id="control-select">
-                        <option value="joystick">Joystick</option>
-                        <option value="dpad">D-Pad</option>
-                    </select>
-                </div>
-                <div class="setting-item">
-                    <label for="layout-select">Button Layout:</label>
-                    <select id="layout-select">
-                        <option value="xbox">Xbox (A, B, X, Y)</option>
-                        <option value="ps">PlayStation (△, □, ○, ✕)</option>
-                        <option value="nintendo">Nintendo (A, B, X, Y)</option>
-                        <option value="cardinal">Cardinal (N, W, E, S)</option>
-                    </select>
-                </div>
-                <div class="setting-item">
-                    <label for="haptic-toggle">Haptic Feedback:</label>
-                    <input type="checkbox" id="haptic-toggle" checked>
-                </div>
-                <div class="setting-item">
-                    <label for="fullscreen-toggle">Fullscreen:</label>
-                    <input type="checkbox" id="fullscreen-toggle">
+                <div class="settings-list">
+                    <div class="setting-item">
+                        <label for="theme-select">Theme:</label>
+                        <select id="theme-select">
+                            <option value="system">System</option>
+                            <option value="light">Light</option>
+                            <option value="dark">Dark</option>
+                            <option value="retro">Retro</option>
+                        </select>
+                    </div>
+                    <div class="setting-item">
+                        <label for="control-select">Left Control:</label>
+                        <select id="control-select">
+                            <option value="joystick">Joystick</option>
+                            <option value="dpad">D-Pad</option>
+                        </select>
+                    </div>
+                    <div class="setting-item">
+                        <label for="layout-select">Button Layout:</label>
+                        <select id="layout-select">
+                            <option value="cardinal">Cardinal (N, W, E, S)</option>
+                            <option value="xbox">Xbox (A, B, X, Y)</option>
+                            <option value="ps">PlayStation (△, □, ○, ✕)</option>
+                            <option value="nintendo">Nintendo (A, B, X, Y)</option>
+                        </select>
+                    </div>
+                    <div class="setting-item">
+                        <label for="haptic-toggle">Haptic Feedback:</label>
+                        <input type="checkbox" id="haptic-toggle" checked>
+                    </div>
+                    <div class="setting-item">
+                        <label for="fullscreen-toggle">Fullscreen:</label>
+                        <input type="checkbox" id="fullscreen-toggle">
+                    </div>
                 </div>
                 <button id="close-settings" class="primary-btn">Close</button>
             </div>
