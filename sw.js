@@ -7,7 +7,8 @@ const ASSETS = [
   './manifest.json',
   './icons/icon-192.svg',
   './icons/icon-512.svg',
-  './icons/screenshot-1.png'
+  './screenshots/joystick-xbox-dark.webp',
+  './screenshots/dpad-retro-red.webp'
 ];
 
 self.addEventListener('install', (event) => {

@@ -21,16 +21,16 @@
   ],
   "screenshots": [
     {
-      "src": "icons/screenshot-1.png",
+      "src": "screenshots/joystick-xbox-dark.webp",
       "sizes": "844x390",
-      "type": "image/png",
+      "type": "image/webp",
       "form_factor": "wide",
-      "label": "Joystick - Dark Theme"
+      "label": "Joystick - Xbox Layout - Dark Theme"
     },
     {
-      "src": "icons/screenshot-2.png",
+      "src": "screenshots/dpad-retro-red.webp",
       "sizes": "844x390",
-      "type": "image/png",
+      "type": "image/webp",
       "form_factor": "wide",
       "label": "D-pad - Retro Theme"
     }
