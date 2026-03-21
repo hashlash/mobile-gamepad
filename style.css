@@ -117,19 +117,17 @@ body {
     position: relative;
     width: 150px;
     height: 150px;
+    filter: drop-shadow(0 6px 0 var(--btn-shadow)); /* Shadow for the entire cross */
 }
 
 .dpad-btn {
     position: absolute;
     background-color: var(--stick-base-color);
     border-radius: 8px;
-    box-shadow: 0 4px 0 var(--btn-shadow);
 }
 
 .dpad-btn:active, .dpad-btn.pressed {
     background-color: var(--accent-color);
-    transform: translateY(2px);
-    box-shadow: 0 2px 0 var(--btn-shadow);
 }
 
 #dpad-up {
