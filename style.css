@@ -266,6 +266,7 @@ body {
 .layout-ps #btn-b { background-color: var(--color-red); }  /* Circle */
 .layout-ps #btn-x { background-color: var(--color-pink); } /* Square */
 .layout-ps #btn-y { background-color: var(--color-green); } /* Triangle */
+.layout-ps .action-btn { font-family: 'Noto Sans', sans-serif; font-size: 24px; }
 
 .layout-nintendo #btn-a { background-color: var(--color-red); }    /* B */
 .layout-nintendo #btn-b { background-color: var(--color-yellow); color: #000; } /* A */
