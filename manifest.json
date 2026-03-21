@@ -25,7 +25,14 @@
       "sizes": "844x390",
       "type": "image/png",
       "form_factor": "wide",
-      "label": "Gamepad Interface"
+      "label": "Joystick - Dark Theme"
+    },
+    {
+      "src": "icons/screenshot-2.png",
+      "sizes": "844x390",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "D-pad - Retro Theme"
     }
   ]
 }
