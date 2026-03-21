@@ -12,9 +12,9 @@
     --btn-b: #b00020; /* Darker red */
     --btn-x: #3700b3; /* Deep blue */
     --btn-y: #f9a825; /* Darker amber/yellow */
-    --dpad-grad-1: #888;
-    --dpad-grad-2: #555;
-    --dpad-grad-3: #333;
+    --dpad-grad-1: #606060;
+    --dpad-grad-2: #4a4a4a;
+    --dpad-grad-3: #303030;
 }
 
 /* Light Theme */
@@ -32,8 +32,8 @@
     --btn-x: #1a237e;
     --btn-y: #f57f17;
     --dpad-grad-1: #ffffff;
-    --dpad-grad-2: #cccccc;
-    --dpad-grad-3: #999999;
+    --dpad-grad-2: #f8f8f8;
+    --dpad-grad-3: #f0f0f0;
 }
 
 /* Retro Theme (Classic Gamepad style) */
@@ -50,9 +50,9 @@
     --btn-b: #a00000;
     --btn-x: #a00000;
     --btn-y: #a00000;
-    --dpad-grad-1: #444;
-    --dpad-grad-2: #222;
-    --dpad-grad-3: #111;
+    --dpad-grad-1: #606060;
+    --dpad-grad-2: #404040;
+    --dpad-grad-3: #202020;
 }
 
 /* Reset and Global styles */
