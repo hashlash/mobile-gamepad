@@ -1,5 +1,4 @@
 <svg width="192" height="192" xmlns="http://www.w3.org/2000/svg">
-  <rect width="192" height="192" fill="#333" />
-  <circle cx="96" cy="96" r="60" fill="#eee" />
-  <text x="96" y="105" font-family="Arial" font-size="24" text-anchor="middle" fill="#333">PAD</text>
+  <circle cx="96" cy="96" r="80" fill="#6200ee" />
+  <text x="96" y="105" font-family="Arial" font-weight="bold" font-size="32" text-anchor="middle" fill="#ffffff">GP</text>
 </svg>
