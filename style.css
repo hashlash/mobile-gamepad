@@ -115,64 +115,69 @@ body {
 /* D-pad Styles */
 .dpad {
     position: relative;
-    width: 150px;
-    height: 150px;
-    filter: drop-shadow(0 6px 0 var(--btn-shadow)); /* Shadow for the entire cross */
+    width: 160px;
+    height: 160px;
+    /* No shadow on container to better match reference prismatic style */
 }
 
 .dpad-btn {
     position: absolute;
-    background-color: var(--stick-base-color);
-    background-image: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.2) 100%);
-    transition: background-color 0.1s, transform 0.05s;
+    background-color: #222;
+    background-image: linear-gradient(145deg, #444 0%, #222 50%, #000 100%);
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: filter 0.1s, transform 0.05s;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.6);
 }
 
 .dpad-btn:active, .dpad-btn.pressed {
-    background-color: var(--accent-color);
-    transform: translateY(4px);
+    filter: brightness(1.4) saturate(1.5);
+    transform: scale(0.92);
     z-index: 2;
 }
 
 #dpad-up {
     width: 60px;
     height: 70px;
-    top: -5px;
-    left: 45px;
-    clip-path: polygon(50% 0%, 100% 40%, 100% 100%, 0% 100%, 0% 40%);
+    top: 0;
+    left: 50px;
+    clip-path: polygon(50% 0%, 100% 30%, 100% 100%, 0% 100%, 0% 30%);
+    border-radius: 12px 12px 4px 4px;
 }
 
 #dpad-down {
     width: 60px;
     height: 70px;
-    bottom: -5px;
-    left: 45px;
-    clip-path: polygon(100% 0%, 100% 60%, 50% 100%, 0% 60%, 0% 0%);
+    bottom: 0;
+    left: 50px;
+    clip-path: polygon(100% 0%, 100% 70%, 50% 100%, 0% 70%, 0% 0%);
+    border-radius: 4px 4px 12px 12px;
 }
 
 #dpad-left {
     width: 70px;
     height: 60px;
-    top: 45px;
-    left: -5px;
-    clip-path: polygon(40% 0%, 100% 0%, 100% 100%, 40% 100%, 0% 50%);
+    top: 50px;
+    left: 0;
+    clip-path: polygon(30% 0%, 100% 0%, 100% 100%, 30% 100%, 0% 50%);
+    border-radius: 12px 4px 4px 12px;
 }
 
 #dpad-right {
     width: 70px;
     height: 60px;
-    top: 45px;
-    right: -5px;
-    clip-path: polygon(0% 0%, 60% 0%, 100% 50%, 60% 100%, 0% 100%);
+    top: 50px;
+    right: 0;
+    clip-path: polygon(0% 0%, 70% 0%, 100% 50%, 70% 100%, 0% 100%);
+    border-radius: 4px 12px 12px 4px;
 }
 
 .dpad-center {
     position: absolute;
-    width: 64px;
-    height: 64px;
-    top: 43px;
-    left: 43px;
-    background-color: var(--stick-base-color);
-    border-radius: 4px;
+    width: 40px;
+    height: 40px;
+    top: 60px;
+    left: 60px;
+    background: transparent;
     z-index: 1;
 }
 
