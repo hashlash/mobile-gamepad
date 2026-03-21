@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const settingsToggle = document.getElementById('settings-toggle');
     const closeSettings = document.getElementById('close-settings');
     const settingsModal = document.getElementById('settings-modal');
+    const settingsList = document.querySelector('.settings-list');
     const statusIndicator = document.getElementById('status-indicator');
 
     // --- Service Worker Registration ---
@@ -151,7 +152,32 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- Modal Controls ---
-    settingsToggle.addEventListener('click', () => settingsModal.classList.remove('hidden'));
+    function updateScrollHints() {
+        if (!settingsList) return;
+        const { scrollTop, scrollHeight, clientHeight } = settingsList;
+
+        // Show top shadow if scrolled down
+        if (scrollTop > 5) {
+            settingsList.classList.add('scroll-top');
+        } else {
+            settingsList.classList.remove('scroll-top');
+        }
+
+        // Show bottom shadow if there is more to scroll down
+        if (scrollTop + clientHeight < scrollHeight - 5) {
+            settingsList.classList.add('scroll-bottom');
+        } else {
+            settingsList.classList.remove('scroll-bottom');
+        }
+    }
+
+    settingsList.addEventListener('scroll', updateScrollHints);
+
+    settingsToggle.addEventListener('click', () => {
+        settingsModal.classList.remove('hidden');
+        // Delay slightly to ensure layout is updated for calculation
+        setTimeout(updateScrollHints, 50);
+    });
     closeSettings.addEventListener('click', () => settingsModal.classList.add('hidden'));
 
     // --- Fullscreen Logic ---
