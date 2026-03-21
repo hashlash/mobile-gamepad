@@ -128,50 +128,50 @@ body {
 
 .dpad-btn:active, .dpad-btn.pressed {
     background-color: var(--accent-color);
-    box-shadow: inset 0 4px 8px rgba(0,0,0,0.4);
-    filter: brightness(0.9);
+    transform: translateY(4px); /* Provide movement */
+    z-index: 2;
 }
 
 #dpad-up {
-    width: 52px; /* Slight overlap to prevent gaps */
+    width: 50px;
     height: 60px;
     top: 0;
-    left: 49px;
+    left: 50px;
     border-radius: 8px 8px 0 0;
 }
 
 #dpad-down {
-    width: 52px;
+    width: 50px;
     height: 60px;
     bottom: 0;
-    left: 49px;
+    left: 50px;
     border-radius: 0 0 8px 8px;
 }
 
 #dpad-left {
     width: 60px;
-    height: 52px;
-    top: 49px;
+    height: 50px;
+    top: 50px;
     left: 0;
     border-radius: 8px 0 0 8px;
 }
 
 #dpad-right {
     width: 60px;
-    height: 52px;
-    top: 49px;
+    height: 50px;
+    top: 50px;
     right: 0;
     border-radius: 0 8px 8px 0;
 }
 
 .dpad-center {
     position: absolute;
-    width: 54px;
-    height: 54px;
-    top: 48px;
-    left: 48px;
+    width: 52px; /* Solid base slightly larger than button width */
+    height: 52px;
+    top: 49px;
+    left: 49px;
     background-color: var(--stick-base-color);
-    z-index: 2; /* Ensure center is above the buttons */
+    z-index: 1;
 }
 
 /* Action Button Styles */
