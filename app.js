@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
         hapticEnabled: true,
         currentTheme: 'system',
         controlType: 'joystick',
+        buttonLayout: 'xbox',
         touchData: {
             joystick: { identifier: null },
             buttons: new Set()
@@ -23,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const actionButtons = document.querySelectorAll('.action-btn');
     const themeSelect = document.getElementById('theme-select');
     const controlSelect = document.getElementById('control-select');
+    const layoutSelect = document.getElementById('layout-select');
     const hapticToggle = document.getElementById('haptic-toggle');
     const fullscreenToggle = document.getElementById('fullscreen-toggle');
     const settingsToggle = document.getElementById('settings-toggle');
@@ -80,6 +82,40 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('gamepad-control-type', type);
     }
 
+    function applyButtonLayout(layout) {
+        state.buttonLayout = layout;
+        const container = document.getElementById('action-buttons-area');
+        container.classList.remove('layout-xbox', 'layout-ps', 'layout-nintendo', 'layout-cardinal');
+        container.classList.add(`layout-${layout}`);
+
+        // Update Button Symbols/Labels
+        const btnY = document.getElementById('btn-y');
+        const btnX = document.getElementById('btn-x');
+        const btnB = document.getElementById('btn-b');
+        const btnA = document.getElementById('btn-a');
+
+        const labels = {
+            xbox: { Y: 'Y', X: 'X', B: 'B', A: 'A' },
+            ps: { Y: '△', X: '□', B: '○', A: '✕' },
+            nintendo: { Y: 'X', X: 'Y', B: 'A', A: 'B' },
+            cardinal: { Y: 'N', X: 'W', B: 'E', A: 'S' }
+        };
+
+        const config = labels[layout];
+        btnY.innerText = config.Y;
+        btnX.innerText = config.X;
+        btnB.innerText = config.B;
+        btnA.innerText = config.A;
+
+        // Update data-btn attributes
+        btnY.setAttribute('data-btn', config.Y);
+        btnX.setAttribute('data-btn', config.X);
+        btnB.setAttribute('data-btn', config.B);
+        btnA.setAttribute('data-btn', config.A);
+
+        localStorage.setItem('gamepad-button-layout', layout);
+    }
+
     // Load saved settings
     const savedTheme = localStorage.getItem('gamepad-theme') || 'system';
     themeSelect.value = savedTheme;
@@ -89,6 +125,10 @@ document.addEventListener('DOMContentLoaded', () => {
     controlSelect.value = savedControlType;
     applyControlType(savedControlType);
 
+    const savedLayout = localStorage.getItem('gamepad-button-layout') || 'xbox';
+    layoutSelect.value = savedLayout;
+    applyButtonLayout(savedLayout);
+
     const savedHaptic = localStorage.getItem('gamepad-haptic') !== 'false';
     hapticToggle.checked = savedHaptic;
     state.hapticEnabled = savedHaptic;
@@ -96,6 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Listen for setting changes
     themeSelect.addEventListener('change', (e) => applyTheme(e.target.value));
     controlSelect.addEventListener('change', (e) => applyControlType(e.target.value));
+    layoutSelect.addEventListener('change', (e) => applyButtonLayout(e.target.value));
     hapticToggle.addEventListener('change', (e) => {
         state.hapticEnabled = e.target.checked;
         localStorage.setItem('gamepad-haptic', e.target.checked);
