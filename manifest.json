@@ -3,7 +3,7 @@
   "short_name": "Gamepad",
   "description": "A mobile web-based gamepad controller.",
   "start_url": ".",
-  "display": "standalone",
+  "display": "fullscreen",
   "orientation": "landscape",
   "background_color": "#121212",
   "theme_color": "#121212",

@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const themeSelect = document.getElementById('theme-select');
     const controlSelect = document.getElementById('control-select');
     const hapticToggle = document.getElementById('haptic-toggle');
+    const fullscreenToggle = document.getElementById('fullscreen-toggle');
     const settingsToggle = document.getElementById('settings-toggle');
     const closeSettings = document.getElementById('close-settings');
     const settingsModal = document.getElementById('settings-modal');
@@ -103,6 +104,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Modal Controls ---
     settingsToggle.addEventListener('click', () => settingsModal.classList.remove('hidden'));
     closeSettings.addEventListener('click', () => settingsModal.classList.add('hidden'));
+
+    // --- Fullscreen Logic ---
+    fullscreenToggle.addEventListener('click', () => {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen().catch(err => {
+                console.error(`Error attempting to enable fullscreen: ${err.message}`);
+            });
+        } else {
+            document.exitFullscreen();
+        }
+    });
 
     // --- Joystick Logic ---
     function handleJoystick(e) {
