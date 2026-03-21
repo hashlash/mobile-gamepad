@@ -112,6 +112,68 @@ body {
     transition: transform 0.05s linear;
 }
 
+/* D-pad Styles */
+.dpad {
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.dpad-btn {
+    position: absolute;
+    background-color: var(--stick-base-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 0 var(--btn-shadow);
+}
+
+.dpad-btn:active, .dpad-btn.pressed {
+    background-color: var(--accent-color);
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 var(--btn-shadow);
+}
+
+#dpad-up {
+    width: 50px;
+    height: 60px;
+    top: 0;
+    left: 50px;
+    border-radius: 8px 8px 0 0;
+}
+
+#dpad-down {
+    width: 50px;
+    height: 60px;
+    bottom: 0;
+    left: 50px;
+    border-radius: 0 0 8px 8px;
+}
+
+#dpad-left {
+    width: 60px;
+    height: 50px;
+    top: 50px;
+    left: 0;
+    border-radius: 8px 0 0 8px;
+}
+
+#dpad-right {
+    width: 60px;
+    height: 50px;
+    top: 50px;
+    right: 0;
+    border-radius: 0 8px 8px 0;
+}
+
+.dpad-center {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: 50px;
+    left: 50px;
+    background-color: var(--stick-base-color);
+    z-index: 1;
+}
+
 /* Action Button Styles */
 .button-grid {
     display: grid;

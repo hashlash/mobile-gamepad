@@ -7,17 +7,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const state = {
         hapticEnabled: true,
         currentTheme: 'system',
+        controlType: 'joystick',
         touchData: {
-            joystick: { identifier: null, startX: 0, startY: 0 },
+            joystick: { identifier: null },
             buttons: new Set()
         }
     };
 
     // --- DOM Elements ---
+    const joystickContainer = document.getElementById('joystick-container');
+    const dpadContainer = document.getElementById('dpad-container');
     const joystickBase = document.getElementById('joystick-base');
     const joystickKnob = document.getElementById('joystick-knob');
+    const dpadButtons = document.querySelectorAll('.dpad-btn');
     const actionButtons = document.querySelectorAll('.action-btn');
     const themeSelect = document.getElementById('theme-select');
+    const controlSelect = document.getElementById('control-select');
     const hapticToggle = document.getElementById('haptic-toggle');
     const settingsToggle = document.getElementById('settings-toggle');
     const closeSettings = document.getElementById('close-settings');
@@ -61,17 +66,35 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('gamepad-theme', theme);
     }
 
+    // --- Control Management ---
+    function applyControlType(type) {
+        state.controlType = type;
+        if (type === 'joystick') {
+            joystickContainer.classList.remove('hidden');
+            dpadContainer.classList.add('hidden');
+        } else {
+            joystickContainer.classList.add('hidden');
+            dpadContainer.classList.remove('hidden');
+        }
+        localStorage.setItem('gamepad-control-type', type);
+    }
+
     // Load saved settings
     const savedTheme = localStorage.getItem('gamepad-theme') || 'system';
     themeSelect.value = savedTheme;
     applyTheme(savedTheme);
 
+    const savedControlType = localStorage.getItem('gamepad-control-type') || 'joystick';
+    controlSelect.value = savedControlType;
+    applyControlType(savedControlType);
+
     const savedHaptic = localStorage.getItem('gamepad-haptic') !== 'false';
     hapticToggle.checked = savedHaptic;
     state.hapticEnabled = savedHaptic;
 
-    // Listen for theme change
+    // Listen for setting changes
     themeSelect.addEventListener('change', (e) => applyTheme(e.target.value));
+    controlSelect.addEventListener('change', (e) => applyControlType(e.target.value));
     hapticToggle.addEventListener('change', (e) => {
         state.hapticEnabled = e.target.checked;
         localStorage.setItem('gamepad-haptic', e.target.checked);
@@ -128,10 +151,39 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    joystickBase.addEventListener('touchstart', handleJoystick);
-    window.addEventListener('touchmove', handleJoystick, { passive: false });
-    window.addEventListener('touchend', handleJoystick);
-    window.addEventListener('touchcancel', handleJoystick);
+    joystickBase.addEventListener('touchstart', (e) => {
+        if (state.controlType === 'joystick') handleJoystick(e);
+    });
+    window.addEventListener('touchmove', (e) => {
+        if (state.controlType === 'joystick') handleJoystick(e);
+    }, { passive: false });
+    window.addEventListener('touchend', (e) => {
+        if (state.controlType === 'joystick') handleJoystick(e);
+    });
+    window.addEventListener('touchcancel', (e) => {
+        if (state.controlType === 'joystick') handleJoystick(e);
+    });
+
+    // --- D-pad Logic ---
+    dpadButtons.forEach(btn => {
+        const dir = btn.getAttribute('data-dir');
+
+        btn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            btn.classList.add('pressed');
+            triggerHaptic('light');
+            console.log(`D-pad: ${dir} Pressed`);
+        });
+
+        const release = (e) => {
+            e.preventDefault();
+            btn.classList.remove('pressed');
+            console.log(`D-pad: ${dir} Released`);
+        };
+
+        btn.addEventListener('touchend', release);
+        btn.addEventListener('touchcancel', release);
+    });
 
     // --- Action Button Logic ---
     actionButtons.forEach(btn => {
