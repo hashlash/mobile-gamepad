@@ -226,10 +226,10 @@ body {
 }
 
 /* Action Button Colors - Generic */
-#btn-a { grid-area: A; background-color: var(--btn-a); color: #ffffff; }
-#btn-b { grid-area: B; background-color: var(--btn-b); color: #ffffff; }
-#btn-x { grid-area: X; background-color: var(--btn-x); color: #ffffff; }
-#btn-y { grid-area: Y; background-color: var(--btn-y); color: var(--btn-text); }
+#btn-south { grid-area: A; background-color: var(--btn-a); color: #ffffff; }
+#btn-east { grid-area: B; background-color: var(--btn-b); color: #ffffff; }
+#btn-west { grid-area: X; background-color: var(--btn-x); color: #ffffff; }
+#btn-north { grid-area: Y; background-color: var(--btn-y); color: var(--btn-text); }
 
 /* Theme nuanced color variables for layouts */
 :root {
@@ -257,21 +257,21 @@ body {
 }
 
 /* Specific Layout Styling */
-.layout-xbox #btn-a { background-color: var(--color-green); }
-.layout-xbox #btn-b { background-color: var(--color-red); }
-.layout-xbox #btn-x { background-color: var(--color-blue); }
-.layout-xbox #btn-y { background-color: var(--color-yellow); color: #000; }
+.layout-xbox #btn-south { background-color: var(--color-green); }
+.layout-xbox #btn-east { background-color: var(--color-red); }
+.layout-xbox #btn-west { background-color: var(--color-blue); }
+.layout-xbox #btn-north { background-color: var(--color-yellow); color: #000; }
 
-.layout-ps #btn-a { background-color: var(--color-blue); } /* Cross */
-.layout-ps #btn-b { background-color: var(--color-red); }  /* Circle */
-.layout-ps #btn-x { background-color: var(--color-pink); } /* Square */
-.layout-ps #btn-y { background-color: var(--color-green); } /* Triangle */
+.layout-ps #btn-south { background-color: var(--color-blue); } /* Cross */
+.layout-ps #btn-east { background-color: var(--color-red); }  /* Circle */
+.layout-ps #btn-west { background-color: var(--color-pink); } /* Square */
+.layout-ps #btn-north { background-color: var(--color-green); } /* Triangle */
 .layout-ps .action-btn { font-family: 'Google Sans', sans-serif; font-size: 24px; }
 
-.layout-nintendo #btn-a { background-color: var(--color-red); }    /* B */
-.layout-nintendo #btn-b { background-color: var(--color-yellow); color: #000; } /* A */
-.layout-nintendo #btn-x { background-color: var(--color-green); }  /* Y */
-.layout-nintendo #btn-y { background-color: var(--color-blue); }   /* X */
+.layout-nintendo #btn-south { background-color: var(--color-red); }    /* B */
+.layout-nintendo #btn-east { background-color: var(--color-yellow); color: #000; } /* A */
+.layout-nintendo #btn-west { background-color: var(--color-green); }  /* Y */
+.layout-nintendo #btn-north { background-color: var(--color-blue); }   /* X */
 
 .layout-cardinal .action-btn { background-color: var(--btn-color); color: var(--btn-text); }
 

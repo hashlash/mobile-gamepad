@@ -89,29 +89,29 @@ document.addEventListener('DOMContentLoaded', () => {
         container.classList.add(`layout-${layout}`);
 
         // Update Button Symbols/Labels
-        const btnY = document.getElementById('btn-y');
-        const btnX = document.getElementById('btn-x');
-        const btnB = document.getElementById('btn-b');
-        const btnA = document.getElementById('btn-a');
+        const btnNorth = document.getElementById('btn-north');
+        const btnWest = document.getElementById('btn-west');
+        const btnEast = document.getElementById('btn-east');
+        const btnSouth = document.getElementById('btn-south');
 
         const labels = {
-            xbox: { Y: 'Y', X: 'X', B: 'B', A: 'A' },
-            ps: { Y: '△', X: '□', B: '○', A: '✕' },
-            nintendo: { Y: 'X', X: 'Y', B: 'A', A: 'B' },
-            cardinal: { Y: 'N', X: 'W', B: 'E', A: 'S' }
+            xbox: { N: 'Y', W: 'X', E: 'B', S: 'A' },
+            ps: { N: '△', W: '□', E: '○', S: '✕' },
+            nintendo: { N: 'X', W: 'Y', E: 'A', S: 'B' },
+            cardinal: { N: 'N', W: 'W', E: 'E', S: 'S' }
         };
 
         const config = labels[layout];
-        btnY.innerText = config.Y;
-        btnX.innerText = config.X;
-        btnB.innerText = config.B;
-        btnA.innerText = config.A;
+        btnNorth.innerText = config.N;
+        btnWest.innerText = config.W;
+        btnEast.innerText = config.E;
+        btnSouth.innerText = config.S;
 
         // Update data-btn attributes
-        btnY.setAttribute('data-btn', config.Y);
-        btnX.setAttribute('data-btn', config.X);
-        btnB.setAttribute('data-btn', config.B);
-        btnA.setAttribute('data-btn', config.A);
+        btnNorth.setAttribute('data-btn', config.N);
+        btnWest.setAttribute('data-btn', config.W);
+        btnEast.setAttribute('data-btn', config.E);
+        btnSouth.setAttribute('data-btn', config.S);
 
         localStorage.setItem('gamepad-button-layout', layout);
     }
