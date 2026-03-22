@@ -1,0 +1,85 @@
+asyncapi: 2.6.0
+info:
+  title: Mobile Gamepad API
+  version: 1.0.0
+  description: WebSocket API for transmitting gamepad inputs from mobile to host.
+
+channels:
+  /ws:
+    publish:
+      summary: Send gamepad input events from client to server.
+      message:
+        oneOf:
+          - $ref: '#/components/messages/ButtonEvent'
+          - $ref: '#/components/messages/JoystickEvent'
+    subscribe:
+      summary: Receive feedback events from server to client.
+      message:
+        oneOf:
+          - $ref: '#/components/messages/InfoEvent'
+          - $ref: '#/components/messages/HapticEvent'
+
+components:
+  messages:
+    ButtonEvent:
+      summary: Represents a button press or release.
+      payload:
+        type: object
+        properties:
+          t:
+            type: string
+            enum: [b]
+            description: "Type: Button"
+          i:
+            type: string
+            description: "Button ID (e.g., 'A', 'X', 'UP', 'DOWN')"
+          s:
+            type: integer
+            enum: [0, 1]
+            description: "State: 0=Released, 1=Pressed"
+        required: [t, i, s]
+    JoystickEvent:
+      summary: Represents a joystick movement.
+      payload:
+        type: object
+        properties:
+          t:
+            type: string
+            enum: [j]
+            description: "Type: Joystick"
+          x:
+            type: number
+            minimum: -1
+            maximum: 1
+            description: "X-axis normalized value (-1.0 to 1.0)"
+          y:
+            type: number
+            minimum: -1
+            maximum: 1
+            description: "Y-axis normalized value (-1.0 to 1.0)"
+        required: [t, x, y]
+    InfoEvent:
+      summary: Sent by server to assign player ID.
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: [info]
+          player:
+            type: integer
+            description: "Assigned Player Number (e.g., 1, 2)"
+        required: [type, player]
+    HapticEvent:
+      summary: Sent by server to trigger physical vibration on the phone.
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: [haptic]
+          effect:
+            type: string
+            enum: [light, medium, heavy]
+            description: "The vibration intensity"
+        required: [type]
