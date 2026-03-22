@@ -1,0 +1,16 @@
+{
+  "name": "mobile-gamepad",
+  "version": "1.0.0",
+  "description": "Mobile PWA Gamepad Controller",
+  "main": "app.js",
+  "scripts": {
+    "lint": "eslint app.js sw.js",
+    "test": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "eslint": "^8.56.0"
+  },
+  "author": "hashlash",
+  "license": "MIT"
+}

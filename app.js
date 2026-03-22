@@ -254,9 +254,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!state.hapticEnabled || !navigator.vibrate) return;
 
         switch (type) {
-            case 'light': navigator.vibrate(20); break;
-            case 'medium': navigator.vibrate(50); break;
-            case 'heavy': navigator.vibrate([100, 50, 100]); break;
+        case 'light': navigator.vibrate(20); break;
+        case 'medium': navigator.vibrate(50); break;
+        case 'heavy': navigator.vibrate([100, 50, 100]); break;
         }
     }
 
