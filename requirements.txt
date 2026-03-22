@@ -1,0 +1,5 @@
+fastapi
+uvicorn
+vgamepad
+zeroconf
+python-multipart

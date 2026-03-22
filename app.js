@@ -42,6 +42,64 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('offline', updateOnlineStatus);
     updateOnlineStatus();
 
+    // --- WebSocket Logic ---
+    let socket = null;
+    let reconnectTimeout = null;
+
+    function connectWebSocket() {
+        const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+        const wsUrl = `${protocol}//${window.location.host}/ws`;
+
+        statusIndicator.innerText = 'CONNECTING...';
+        statusIndicator.style.color = '#ffb74d';
+
+        socket = new WebSocket(wsUrl);
+
+        socket.onopen = () => {
+            statusIndicator.innerText = 'CONNECTED';
+            statusIndicator.style.color = '#03dac6';
+            if (reconnectTimeout) {
+                clearTimeout(reconnectTimeout);
+                reconnectTimeout = null;
+            }
+        };
+
+        socket.onclose = () => {
+            statusIndicator.innerText = 'DISCONNECTED';
+            statusIndicator.style.color = '#cf6679';
+            // Attempt to reconnect after 2 seconds
+            if (!reconnectTimeout) {
+                reconnectTimeout = setTimeout(connectWebSocket, 2000);
+            }
+        };
+
+        socket.onerror = () => {
+            socket.close();
+        };
+
+        socket.onmessage = (event) => {
+            try {
+                const data = JSON.parse(event.data);
+                if (data.type === 'info' && data.player) {
+                    statusIndicator.innerText = `CONNECTED (P${data.player})`;
+                } else if (data.type === 'haptic') {
+                    triggerHaptic(data.effect || 'light');
+                }
+            } catch (e) {
+                // Ignore non-json or malformed messages
+            }
+        };
+    }
+
+    function sendInput(payload) {
+        if (socket && socket.readyState === WebSocket.OPEN) {
+            socket.send(JSON.stringify(payload));
+        }
+    }
+
+    // Start connection
+    connectWebSocket();
+
     // --- State & Settings ---
     const state = {
         hapticEnabled: true,
@@ -210,7 +268,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     state.touchData.joystick.identifier = null;
                     joystickKnob.style.transform = 'translate(-50%, -50%)';
                     // Emit joystick neutral event
-                    console.log('Joystick: neutral');
+                    sendInput({ t: 'j', x: 0, y: 0 });
                     continue;
                 }
 
@@ -229,9 +287,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 joystickKnob.style.transform = `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px))`;
 
                 // Emit joystick move event
-                const normX = (dx / maxRadius).toFixed(2);
-                const normY = (dy / maxRadius).toFixed(2);
-                console.log(`Joystick: x=${normX}, y=${normY}`);
+                const normX = parseFloat((dx / maxRadius).toFixed(2));
+                const normY = parseFloat((dy / maxRadius).toFixed(2));
+                sendInput({ t: 'j', x: normX, y: normY });
             }
         }
     }
@@ -265,20 +323,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     allButtons.forEach(btn => {
         const getBtnId = () => btn.getAttribute('data-dir') || btn.getAttribute('data-btn');
-        const isDpad = btn.classList.contains('dpad-btn');
 
         btn.addEventListener('touchstart', (e) => {
             e.preventDefault();
             btn.classList.add('pressed');
             triggerHaptic('light');
-            console.log(`${isDpad ? 'D-pad' : 'Button'} Pressed: ${getBtnId()}`);
+            sendInput({ t: 'b', i: getBtnId(), s: 1 });
         });
 
         const release = (e) => {
             e.preventDefault();
             if (btn.classList.contains('pressed')) {
                 btn.classList.remove('pressed');
-                console.log(`${isDpad ? 'D-pad' : 'Button'} Released: ${getBtnId()}`);
+                sendInput({ t: 'b', i: getBtnId(), s: 0 });
             }
         };
 
