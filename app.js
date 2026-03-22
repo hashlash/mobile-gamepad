@@ -3,6 +3,18 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+    // --- State & Settings ---
+    const state = {
+        hapticEnabled: true,
+        currentTheme: 'system',
+        controlType: 'joystick',
+        buttonLayout: 'xbox',
+        touchData: {
+            joystick: { identifier: null },
+            buttons: new Set()
+        }
+    };
+
     // --- DOM Elements ---
     const joystickContainer = document.getElementById('joystick-container');
     const dpadContainer = document.getElementById('dpad-container');
@@ -42,17 +54,16 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('offline', updateOnlineStatus);
     updateOnlineStatus();
 
-    // --- State & Settings ---
-    const state = {
-        hapticEnabled: true,
-        currentTheme: 'system',
-        controlType: 'joystick',
-        buttonLayout: 'xbox',
-        touchData: {
-            joystick: { identifier: null },
-            buttons: new Set()
+    // --- Haptic Feedback ---
+    function triggerHaptic(type = 'light') {
+        if (!state.hapticEnabled || !navigator.vibrate) return;
+
+        switch (type) {
+            case 'light': navigator.vibrate(20); break;
+            case 'medium': navigator.vibrate(50); break;
+            case 'heavy': navigator.vibrate([100, 50, 100]); break;
         }
-    };
+    }
 
     // --- Theme Management ---
     function applyTheme(theme) {
@@ -249,59 +260,30 @@ document.addEventListener('DOMContentLoaded', () => {
         if (state.controlType === 'joystick') handleJoystick(e);
     });
 
-    // --- Haptic Feedback ---
-    function triggerHaptic(type = 'light') {
-        if (!state.hapticEnabled || !navigator.vibrate) return;
+    // --- Shared Button Logic (D-pad & Action Buttons) ---
+    const allButtons = [...dpadButtons, ...actionButtons];
 
-        switch (type) {
-            case 'light': navigator.vibrate(20); break;
-            case 'medium': navigator.vibrate(50); break;
-            case 'heavy': navigator.vibrate([100, 50, 100]); break;
-        }
-    }
-
-    // --- D-pad Logic ---
-    dpadButtons.forEach(btn => {
-        const dir = btn.getAttribute('data-dir');
+    allButtons.forEach(btn => {
+        const getBtnId = () => btn.getAttribute('data-dir') || btn.getAttribute('data-btn');
+        const isDpad = btn.classList.contains('dpad-btn');
 
         btn.addEventListener('touchstart', (e) => {
             e.preventDefault();
             btn.classList.add('pressed');
             triggerHaptic('light');
-            console.log(`D-pad: ${dir} Pressed`);
+            console.log(`${isDpad ? 'D-pad' : 'Button'} Pressed: ${getBtnId()}`);
         });
 
         const release = (e) => {
             e.preventDefault();
-            btn.classList.remove('pressed');
-            console.log(`D-pad: ${dir} Released`);
+            if (btn.classList.contains('pressed')) {
+                btn.classList.remove('pressed');
+                console.log(`${isDpad ? 'D-pad' : 'Button'} Released: ${getBtnId()}`);
+            }
         };
 
         btn.addEventListener('touchend', release);
         btn.addEventListener('touchcancel', release);
-    });
-
-    // --- Action Button Logic ---
-    actionButtons.forEach(btn => {
-        btn.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            btn.classList.add('pressed');
-            triggerHaptic('light');
-            const currentBtnId = btn.getAttribute('data-btn');
-            console.log(`Button Pressed: ${currentBtnId}`);
-        });
-
-        btn.addEventListener('touchend', (e) => {
-            e.preventDefault();
-            btn.classList.remove('pressed');
-            const currentBtnId = btn.getAttribute('data-btn');
-            console.log(`Button Released: ${currentBtnId}`);
-        });
-
-        btn.addEventListener('touchcancel', (e) => {
-            e.preventDefault();
-            btn.classList.remove('pressed');
-        });
     });
 
     // Prevent default gestures (zoom, etc)
