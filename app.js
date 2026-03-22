@@ -23,8 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Service Worker Registration ---
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js')
-            .catch(err => console.error('SW registration failed:', err));
+        navigator.serviceWorker
+            .register('sw.js')
+            .catch((err) => console.error('SW registration failed:', err));
     }
 
     // --- Connectivity Status ---
@@ -50,8 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
         buttonLayout: 'xbox',
         touchData: {
             joystick: { identifier: null },
-            buttons: new Set()
-        }
+        },
     };
 
     // --- Theme Management ---
@@ -83,7 +83,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function applyButtonLayout(layout) {
         state.buttonLayout = layout;
         const container = document.getElementById('action-buttons-area');
-        container.classList.remove('layout-xbox', 'layout-ps', 'layout-nintendo', 'layout-cardinal');
+        container.classList.remove(
+            'layout-xbox',
+            'layout-ps',
+            'layout-nintendo',
+            'layout-cardinal'
+        );
         container.classList.add(`layout-${layout}`);
 
         // Update Button Symbols/Labels
@@ -93,10 +98,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const btnSouth = document.getElementById('btn-south');
 
         const labels = {
+            cardinal: { N: 'N', W: 'W', E: 'E', S: 'S' },
             xbox: { N: 'Y', W: 'X', E: 'B', S: 'A' },
             ps: { N: '△', W: '□', E: '○', S: '✕' },
             nintendo: { N: 'X', W: 'Y', E: 'A', S: 'B' },
-            cardinal: { N: 'N', W: 'W', E: 'E', S: 'S' }
         };
 
         const config = labels[layout];
@@ -173,7 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
     fullscreenToggle.addEventListener('change', () => {
         if (fullscreenToggle.checked) {
             if (!document.fullscreenElement) {
-                document.documentElement.requestFullscreen().catch(err => {
+                document.documentElement.requestFullscreen().catch((err) => {
                     console.error(`Error attempting to enable fullscreen: ${err.message}`);
                     fullscreenToggle.checked = false;
                 });
@@ -239,9 +244,13 @@ document.addEventListener('DOMContentLoaded', () => {
     joystickBase.addEventListener('touchstart', (e) => {
         if (state.controlType === 'joystick') handleJoystick(e);
     });
-    window.addEventListener('touchmove', (e) => {
-        if (state.controlType === 'joystick') handleJoystick(e);
-    }, { passive: false });
+    window.addEventListener(
+        'touchmove',
+        (e) => {
+            if (state.controlType === 'joystick') handleJoystick(e);
+        },
+        { passive: false }
+    );
     window.addEventListener('touchend', (e) => {
         if (state.controlType === 'joystick') handleJoystick(e);
     });
@@ -254,16 +263,22 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!state.hapticEnabled || !navigator.vibrate) return;
 
         switch (type) {
-            case 'light': navigator.vibrate(20); break;
-            case 'medium': navigator.vibrate(50); break;
-            case 'heavy': navigator.vibrate([100, 50, 100]); break;
+            case 'light':
+                navigator.vibrate(20);
+                break;
+            case 'medium':
+                navigator.vibrate(50);
+                break;
+            case 'heavy':
+                navigator.vibrate([100, 50, 100]);
+                break;
         }
     }
 
     // --- Shared Button Logic (D-pad & Action Buttons) ---
     const allButtons = [...dpadButtons, ...actionButtons];
 
-    allButtons.forEach(btn => {
+    allButtons.forEach((btn) => {
         const getBtnId = () => btn.getAttribute('data-dir') || btn.getAttribute('data-btn');
         const isDpad = btn.classList.contains('dpad-btn');
 

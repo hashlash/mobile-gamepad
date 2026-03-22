@@ -1,108 +1,115 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <meta name="theme-color" content="#121212">
-    <title>Mobile Gamepad</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" href="icons/icon-192.png">
-</head>
-<body class="theme-system">
-    <div id="gamepad-container">
-        <!-- Left Side: Joystick -->
-        <div id="left-stick-area" class="control-area">
-            <!-- Joystick -->
-            <div id="joystick-container">
-                <div id="joystick-base">
-                    <div id="joystick-knob"></div>
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+        />
+        <meta name="theme-color" content="#121212" />
+        <title>Mobile Gamepad</title>
+        <link rel="icon" href="icons/icon-192.svg" type="image/svg+xml" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;700&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="style.css" />
+        <link rel="manifest" href="manifest.json" />
+        <link rel="apple-touch-icon" href="icons/icon-192.png" />
+    </head>
+    <body class="theme-system">
+        <div id="gamepad-container">
+            <!-- Left Side: Joystick -->
+            <div id="left-stick-area" class="control-area">
+                <!-- Joystick -->
+                <div id="joystick-container">
+                    <div id="joystick-base">
+                        <div id="joystick-knob"></div>
+                    </div>
+                </div>
+
+                <!-- D-pad -->
+                <div id="dpad-container" class="hidden">
+                    <div class="dpad">
+                        <div id="dpad-up" class="dpad-btn" data-dir="UP"></div>
+                        <div id="dpad-right" class="dpad-btn" data-dir="RIGHT"></div>
+                        <div id="dpad-down" class="dpad-btn" data-dir="DOWN"></div>
+                        <div id="dpad-left" class="dpad-btn" data-dir="LEFT"></div>
+                        <div class="dpad-center"></div>
+                    </div>
                 </div>
             </div>
 
-            <!-- D-pad -->
-            <div id="dpad-container" class="hidden">
-                <div class="dpad">
-                    <div id="dpad-up" class="dpad-btn" data-dir="UP"></div>
-                    <div id="dpad-right" class="dpad-btn" data-dir="RIGHT"></div>
-                    <div id="dpad-down" class="dpad-btn" data-dir="DOWN"></div>
-                    <div id="dpad-left" class="dpad-btn" data-dir="LEFT"></div>
-                    <div class="dpad-center"></div>
+            <!-- Right Side: Action Buttons -->
+            <div id="action-buttons-area" class="control-area">
+                <div class="button-grid">
+                    <div id="btn-north" class="action-btn" data-btn="Y">Y</div>
+                    <div id="btn-west" class="action-btn" data-btn="X">X</div>
+                    <div id="btn-east" class="action-btn" data-btn="B">B</div>
+                    <div id="btn-south" class="action-btn" data-btn="A">A</div>
+                </div>
+            </div>
+
+            <!-- Center/Top: Controls & Settings -->
+            <div id="controls-top">
+                <button id="settings-toggle" class="control-btn" aria-label="Settings">⚙️</button>
+                <div id="status-indicator">OFFLINE</div>
+            </div>
+
+            <!-- Settings Modal -->
+            <div id="settings-modal" class="hidden">
+                <div class="modal-content">
+                    <h2>Settings</h2>
+                    <div class="settings-list">
+                        <div class="setting-item">
+                            <label for="theme-select">Theme:</label>
+                            <select id="theme-select">
+                                <option value="system">System</option>
+                                <option value="light">Light</option>
+                                <option value="dark">Dark</option>
+                                <option value="retro">Retro</option>
+                            </select>
+                        </div>
+                        <div class="setting-item">
+                            <label for="control-select">Left Control:</label>
+                            <select id="control-select">
+                                <option value="joystick">Joystick</option>
+                                <option value="dpad">D-Pad</option>
+                            </select>
+                        </div>
+                        <div class="setting-item">
+                            <label for="layout-select">Button Layout:</label>
+                            <select id="layout-select">
+                                <option value="cardinal">Cardinal</option>
+                                <option value="xbox">Xbox</option>
+                                <option value="ps">PlayStation</option>
+                                <option value="nintendo">Nintendo</option>
+                            </select>
+                        </div>
+                        <div class="setting-item">
+                            <label for="haptic-toggle">Haptic Feedback:</label>
+                            <input type="checkbox" id="haptic-toggle" checked />
+                        </div>
+                        <div class="setting-item">
+                            <label for="fullscreen-toggle">Fullscreen:</label>
+                            <input type="checkbox" id="fullscreen-toggle" />
+                        </div>
+                    </div>
+                    <button id="close-settings" class="primary-btn">Close</button>
+                </div>
+            </div>
+
+            <!-- Orientation Overlay -->
+            <div id="orientation-overlay">
+                <div class="overlay-content">
+                    <div class="rotate-icon"></div>
+                    <p>Please rotate your device to landscape mode</p>
                 </div>
             </div>
         </div>
 
-        <!-- Right Side: Action Buttons -->
-        <div id="action-buttons-area" class="control-area">
-            <div class="button-grid">
-                <div id="btn-north" class="action-btn" data-btn="Y">Y</div>
-                <div id="btn-west" class="action-btn" data-btn="X">X</div>
-                <div id="btn-east" class="action-btn" data-btn="B">B</div>
-                <div id="btn-south" class="action-btn" data-btn="A">A</div>
-            </div>
-        </div>
-
-        <!-- Center/Top: Controls & Settings -->
-        <div id="controls-top">
-            <button id="settings-toggle" class="control-btn" aria-label="Settings">⚙️</button>
-            <div id="status-indicator">OFFLINE</div>
-        </div>
-
-        <!-- Settings Modal -->
-        <div id="settings-modal" class="hidden">
-            <div class="modal-content">
-                <h2>Settings</h2>
-                <div class="settings-list">
-                    <div class="setting-item">
-                        <label for="theme-select">Theme:</label>
-                        <select id="theme-select">
-                            <option value="system">System</option>
-                            <option value="light">Light</option>
-                            <option value="dark">Dark</option>
-                            <option value="retro">Retro</option>
-                        </select>
-                    </div>
-                    <div class="setting-item">
-                        <label for="control-select">Left Control:</label>
-                        <select id="control-select">
-                            <option value="joystick">Joystick</option>
-                            <option value="dpad">D-Pad</option>
-                        </select>
-                    </div>
-                    <div class="setting-item">
-                        <label for="layout-select">Button Layout:</label>
-                        <select id="layout-select">
-                            <option value="cardinal">Cardinal</option>
-                            <option value="xbox">Xbox</option>
-                            <option value="ps">PlayStation</option>
-                            <option value="nintendo">Nintendo</option>
-                        </select>
-                    </div>
-                    <div class="setting-item">
-                        <label for="haptic-toggle">Haptic Feedback:</label>
-                        <input type="checkbox" id="haptic-toggle" checked>
-                    </div>
-                    <div class="setting-item">
-                        <label for="fullscreen-toggle">Fullscreen:</label>
-                        <input type="checkbox" id="fullscreen-toggle">
-                    </div>
-                </div>
-                <button id="close-settings" class="primary-btn">Close</button>
-            </div>
-        </div>
-
-        <!-- Orientation Overlay -->
-        <div id="orientation-overlay">
-            <div class="overlay-content">
-                <div class="rotate-icon"></div>
-                <p>Please rotate your device to landscape mode</p>
-            </div>
-        </div>
-    </div>
-
-    <script src="app.js"></script>
-</body>
+        <script src="app.js"></script>
+    </body>
 </html>
