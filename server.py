@@ -12,6 +12,8 @@ app = FastAPI(docs_url=None, redoc_url=None)
 # --- Virtual Gamepad Management ---
 # A dictionary to map client IDs to their virtual gamepad instances
 gamepads = {}
+# A dictionary to map client IDs to their assigned player numbers
+player_assignments = {}
 
 def get_gamepad(client_id):
     if client_id not in gamepads:
@@ -76,7 +78,9 @@ async def websocket_endpoint(websocket: WebSocket):
     print(f"Client connected: {client_id}")
 
     # Assign Player Number based on current connections
-    player_id = len(gamepads) + 1
+    player_id = len(player_assignments) + 1
+    player_assignments[client_id] = player_id
+
     await websocket.send_json({"type": "info", "player": player_id})
     # Send a small haptic pulse to confirm connection
     await websocket.send_json({"type": "haptic", "effect": "medium"})
@@ -89,6 +93,8 @@ async def websocket_endpoint(websocket: WebSocket):
         print(f"Client disconnected: {client_id}")
         if client_id in gamepads:
             del gamepads[client_id]
+        if client_id in player_assignments:
+            del player_assignments[client_id]
 
 # --- ZeroConf / mDNS Discovery ---
 def start_zeroconf():
@@ -141,6 +147,16 @@ def start_zeroconf():
 @app.get("/docs")
 async def get_docs():
     return FileResponse("docs.html")
+
+@app.get("/connections")
+async def get_connections():
+    return {
+        "count": len(player_assignments),
+        "clients": [
+            {"client_id": cid, "player": pid}
+            for cid, pid in player_assignments.items()
+        ]
+    }
 
 app.mount("/", StaticFiles(directory=".", html=True), name="static")
 

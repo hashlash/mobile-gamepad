@@ -13,6 +13,7 @@ client = TestClient(app)
 @pytest.fixture(autouse=True)
 def clear_gamepads():
     server.gamepads.clear()
+    server.player_assignments.clear()
 
 def test_static_files():
     """Test that the frontend is served."""
@@ -26,6 +27,23 @@ def test_docs_page():
     assert response.status_code == 200
     # Check for the custom title in docs.html
     assert "Mobile Gamepad - AsyncAPI Documentation" in response.text
+
+def test_connections_endpoint():
+    """Test that the connections endpoint reflects active WebSocket sessions."""
+    # Check initial empty state
+    response = client.get("/connections")
+    assert response.status_code == 200
+    assert response.json()["count"] == 0
+
+    # Connect a client
+    with client.websocket_connect("/ws") as websocket:
+        response = client.get("/connections")
+        assert response.json()["count"] == 1
+        assert "testclient" in response.json()["clients"][0]["client_id"]
+
+    # Check after disconnect
+    response = client.get("/connections")
+    assert response.json()["count"] == 0
 
 def test_websocket_connection():
     """Test WebSocket connection and initial info message."""
