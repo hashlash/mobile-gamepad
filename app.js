@@ -3,18 +3,6 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    // --- State & Settings ---
-    const state = {
-        hapticEnabled: true,
-        currentTheme: 'system',
-        controlType: 'joystick',
-        buttonLayout: 'xbox',
-        touchData: {
-            joystick: { identifier: null },
-            buttons: new Set()
-        }
-    };
-
     // --- DOM Elements ---
     const joystickContainer = document.getElementById('joystick-container');
     const dpadContainer = document.getElementById('dpad-container');
@@ -54,16 +42,17 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('offline', updateOnlineStatus);
     updateOnlineStatus();
 
-    // --- Haptic Feedback ---
-    function triggerHaptic(type = 'light') {
-        if (!state.hapticEnabled || !navigator.vibrate) return;
-
-        switch (type) {
-            case 'light': navigator.vibrate(20); break;
-            case 'medium': navigator.vibrate(50); break;
-            case 'heavy': navigator.vibrate([100, 50, 100]); break;
+    // --- State & Settings ---
+    const state = {
+        hapticEnabled: true,
+        currentTheme: 'system',
+        controlType: 'joystick',
+        buttonLayout: 'xbox',
+        touchData: {
+            joystick: { identifier: null },
+            buttons: new Set()
         }
-    }
+    };
 
     // --- Theme Management ---
     function applyTheme(theme) {
@@ -259,6 +248,17 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('touchcancel', (e) => {
         if (state.controlType === 'joystick') handleJoystick(e);
     });
+
+    // --- Haptic Feedback ---
+    function triggerHaptic(type = 'light') {
+        if (!state.hapticEnabled || !navigator.vibrate) return;
+
+        switch (type) {
+            case 'light': navigator.vibrate(20); break;
+            case 'medium': navigator.vibrate(50); break;
+            case 'heavy': navigator.vibrate([100, 50, 100]); break;
+        }
+    }
 
     // --- D-pad Logic ---
     dpadButtons.forEach(btn => {
