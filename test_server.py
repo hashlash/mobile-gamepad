@@ -20,6 +20,13 @@ def test_static_files():
     assert response.status_code == 200
     assert "Mobile Gamepad" in response.text
 
+def test_docs_page():
+    """Test that our custom docs.html is served, not the default FastAPI docs."""
+    response = client.get("/docs")
+    assert response.status_code == 200
+    # Check for the custom title in docs.html
+    assert "Mobile Gamepad - AsyncAPI Documentation" in response.text
+
 def test_websocket_connection():
     """Test WebSocket connection and initial info message."""
     with patch('server.vg.VX360Gamepad') as mock_vg_class:
@@ -38,9 +45,6 @@ def test_websocket_connection():
 
 def test_button_input():
     """Test that button inputs are correctly processed and sent to vgamepad."""
-    mock_gamepad = MagicMock()
-
-    # We patch the process_input function directly to verify it gets called
     with patch('server.process_input') as mock_process:
         with client.websocket_connect("/ws") as websocket:
             # Skip info and haptic messages
@@ -49,11 +53,6 @@ def test_button_input():
 
             # Send A button press
             websocket.send_json({"t": "b", "i": "A", "s": 1})
-
-            # TestClient runs in a single thread, so the message might be processed synchronously
-            # But FastAPI handles websockets in tasks.
-            # We might need a small wait or just check if it was called.
-            # However, TestClient.websocket_connect is synchronous-looking but uses a sub-event loop.
 
             # Let's try to verify the call
             client_id = f"{websocket.scope['client'][0]}:{websocket.scope['client'][1]}"

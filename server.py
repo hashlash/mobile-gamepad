@@ -3,10 +3,11 @@ import json
 import socket
 import vgamepad as vg
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from zeroconf import IPVersion, ServiceInfo, Zeroconf
 
-app = FastAPI()
+app = FastAPI(docs_url=None, redoc_url=None)
 
 # --- Virtual Gamepad Management ---
 # A dictionary to map client IDs to their virtual gamepad instances
@@ -136,7 +137,11 @@ def start_zeroconf():
 #         app.state.zeroconf.unregister_service(app.state.zc_info)
 #         app.state.zeroconf.close()
 
-# --- Serve Frontend ---
+# --- Serve Frontend & Docs ---
+@app.get("/docs")
+async def get_docs():
+    return FileResponse("docs.html")
+
 app.mount("/", StaticFiles(directory=".", html=True), name="static")
 
 if __name__ == "__main__":
