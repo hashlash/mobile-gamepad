@@ -19,6 +19,7 @@ The project focuses on local Wi-Fi play and a lightweight web-based experience, 
 To use the gamepad, you need to serve the project files from a web server on your local network.
 
 ### Local Development Server
+
 If you have Python installed, you can quickly start a server in the project directory:
 
 ```bash
@@ -32,22 +33,28 @@ Then, open your mobile browser and navigate to your computer's IP address (e.g.,
 The project uses modern web standards and includes professional tooling for quality assurance.
 
 ### Prerequisites
+
 - [Node.js](https://nodejs.org/) (v18+)
 - [npm](https://www.npmjs.com/)
 
 ### Installation
+
 ```bash
 npm install
 ```
 
 ### Linting
+
 We use ESLint to maintain code consistency.
+
 ```bash
 npm run lint
 ```
 
 ### Testing
+
 End-to-End tests are implemented using Playwright.
+
 ```bash
 npx playwright install # Install required browsers
 npm test

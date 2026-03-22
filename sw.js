@@ -9,7 +9,7 @@ const ASSETS = [
     './icons/icon-192.svg',
     './icons/icon-512.svg',
     './screenshots/joystick-xbox-dark.webp',
-    './screenshots/dpad-xbox-retro.webp'
+    './screenshots/dpad-xbox-retro.webp',
 ];
 
 self.addEventListener('install', (event) => {

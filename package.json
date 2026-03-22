@@ -1,14 +1,22 @@
 {
-  "name": "mobile-gamepad",
-  "version": "1.0.0",
-  "description": "Mobile PWA Gamepad Controller",
-  "scripts": {
-    "lint": "eslint .",
-    "test": "playwright test"
-  },
-  "devDependencies": {
-    "@playwright/test": "^1.40.0",
-    "eslint": "^8.56.0"
-  },
-  "author": "hashlash"
+    "name": "mobile-gamepad",
+    "version": "1.0.0",
+    "description": "Mobile PWA Gamepad Controller",
+    "scripts": {
+        "lint": "npm run lint:js && npm run lint:css && npm run lint:format",
+        "lint:js": "eslint .",
+        "lint:css": "stylelint \"**/*.css\"",
+        "lint:format": "prettier --check .",
+        "format": "prettier --write .",
+        "test": "playwright test"
+    },
+    "devDependencies": {
+        "@playwright/test": "^1.40.0",
+        "eslint": "^8.56.0",
+        "eslint-config-prettier": "^10.1.8",
+        "prettier": "^3.8.1",
+        "stylelint": "^17.5.0",
+        "stylelint-config-standard": "^40.0.0"
+    },
+    "author": "hashlash"
 }
