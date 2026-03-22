@@ -49,8 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
         controlType: 'joystick',
         buttonLayout: 'xbox',
         touchData: {
-            joystick: { identifier: null },
-            buttons: new Set()
+            joystick: { identifier: null }
         }
     };
 
@@ -93,10 +92,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const btnSouth = document.getElementById('btn-south');
 
         const labels = {
+            cardinal: { N: 'N', W: 'W', E: 'E', S: 'S' },
             xbox: { N: 'Y', W: 'X', E: 'B', S: 'A' },
             ps: { N: '△', W: '□', E: '○', S: '✕' },
-            nintendo: { N: 'X', W: 'Y', E: 'A', S: 'B' },
-            cardinal: { N: 'N', W: 'W', E: 'E', S: 'S' }
+            nintendo: { N: 'X', W: 'Y', E: 'A', S: 'B' }
         };
 
         const config = labels[layout];
