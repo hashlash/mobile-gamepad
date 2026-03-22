@@ -1,0 +1,21 @@
+<svg width="192" height="192" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Same path as 512 for consistency -->
+  <path d="M140,160 C100,160 60,190 40,240 C20,290 20,380 60,420 C100,460 160,440 200,400 L312,400 C352,440 412,460 452,420 C492,380 492,290 472,240 C452,190 412,160 372,160 L140,160 Z" fill="#4a4a4a" />
+
+  <path d="M140,170 C110,170 80,195 65,230 C55,250 55,300 70,330" fill="none" stroke="#ffffff" stroke-width="8" stroke-linecap="round" opacity="0.2" />
+
+  <circle cx="180" cy="320" r="45" fill="#2c2c2c" />
+  <circle cx="180" cy="320" r="35" fill="#757575" />
+  <circle cx="332" cy="320" r="45" fill="#2c2c2c" />
+  <circle cx="332" cy="320" r="35" fill="#757575" />
+
+  <rect x="90" y="240" width="40" height="15" rx="5" fill="#757575" />
+  <rect x="102.5" y="227.5" width="15" height="40" rx="5" fill="#757575" />
+
+  <circle cx="380" cy="247.5" r="18" fill="#757575" />
+  <circle cx="412.5" cy="280" r="18" fill="#757575" />
+  <circle cx="380" cy="312.5" r="18" fill="#757575" />
+  <circle cx="347.5" cy="280" r="18" fill="#757575" />
+
+  <rect x="236" y="190" width="40" height="15" rx="7.5" fill="#6200ee" opacity="0.8" />
+</svg>

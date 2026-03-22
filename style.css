@@ -1,0 +1,495 @@
+:root {
+    /* Default (Dark) variables */
+    --bg-color: #121212;
+    --text-color: #e0e0e0;
+    --stick-base-color: #2c2c2c;
+    --stick-knob-color: #4a4a4a;
+    --btn-color: #3d3d3d;
+    --btn-text: #ffffff;
+    --btn-shadow: #1a1a1a;
+    --accent-color: #bb86fc;
+    --btn-a: #018786; /* Darker teal for better contrast with white text */
+    --btn-b: #b00020; /* Darker red */
+    --btn-x: #3700b3; /* Deep blue */
+    --btn-y: #f9a825; /* Darker amber/yellow */
+    --dpad-grad-1: #606060;
+    --dpad-grad-2: #4a4a4a;
+    --dpad-grad-3: #303030;
+}
+
+/* Light Theme */
+.theme-light {
+    --bg-color: #f5f5f5;
+    --text-color: #212121;
+    --stick-base-color: #e0e0e0;
+    --stick-knob-color: #757575;
+    --btn-color: #eeeeee;
+    --btn-text: #212121;
+    --btn-shadow: #bdbdbd;
+    --accent-color: #6200ee;
+    --btn-a: #004d40; /* Very dark teal for contrast with light theme if needed */
+    --btn-b: #b71c1c;
+    --btn-x: #1a237e;
+    --btn-y: #f57f17;
+    --dpad-grad-1: #9e9e9e;
+    --dpad-grad-2: #757575;
+    --dpad-grad-3: #616161;
+}
+
+/* Retro Theme (Classic Gamepad style) */
+.theme-retro {
+    --bg-color: #c0c0c0;
+    --text-color: #000000;
+    --stick-base-color: #808080;
+    --stick-knob-color: #404040;
+    --btn-color: #a00000;
+    --btn-text: #ffffff;
+    --btn-shadow: #600000;
+    --accent-color: #000080;
+    --btn-a: #a00000;
+    --btn-b: #a00000;
+    --btn-x: #a00000;
+    --btn-y: #a00000;
+    --dpad-grad-1: #606060;
+    --dpad-grad-2: #404040;
+    --dpad-grad-3: #202020;
+}
+
+/* Reset and Global styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+    touch-action: none; /* Prevent browser handling of touch */
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Main Container */
+#gamepad-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.control-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    height: 100%;
+}
+
+/* Joystick Styles */
+#joystick-base {
+    width: 150px;
+    height: 150px;
+    background-color: var(--stick-base-color);
+    border-radius: 50%;
+    position: relative;
+    box-shadow: inset 0 4px 8px rgba(0,0,0,0.3);
+}
+
+#joystick-knob {
+    width: 60px;
+    height: 60px;
+    background-color: var(--stick-knob-color);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    transition: transform 0.05s linear;
+}
+
+/* D-pad Styles */
+.dpad {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    /* No shadow on container to better match reference prismatic style */
+}
+
+.dpad-btn {
+    position: absolute;
+    background-color: var(--dpad-grad-2);
+    background-image: linear-gradient(145deg, var(--dpad-grad-1) 0%, var(--dpad-grad-2) 50%, var(--dpad-grad-3) 100%);
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: filter 0.1s, transform 0.05s;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.6);
+}
+
+.dpad-btn:active, .dpad-btn.pressed {
+    filter: brightness(1.4) saturate(1.5);
+    transform: scale(0.92);
+    z-index: 2;
+}
+
+#dpad-up {
+    width: 60px;
+    height: 70px;
+    top: -5px;
+    left: 50px;
+    clip-path: polygon(100% 0%, 100% 70%, 50% 100%, 0% 70%, 0% 0%);
+    border-radius: 8px 8px 0 0;
+    background-image: linear-gradient(to top, var(--dpad-grad-2) 0%, var(--dpad-grad-1) 100%);
+}
+
+#dpad-down {
+    width: 60px;
+    height: 70px;
+    bottom: -5px;
+    left: 50px;
+    clip-path: polygon(50% 0%, 100% 30%, 100% 100%, 0% 100%, 0% 30%);
+    border-radius: 0 0 8px 8px;
+    background-image: linear-gradient(to bottom, var(--dpad-grad-2) 0%, var(--dpad-grad-1) 100%);
+}
+
+#dpad-left {
+    width: 70px;
+    height: 60px;
+    top: 50px;
+    left: -5px;
+    clip-path: polygon(0% 0%, 70% 0%, 100% 50%, 70% 100%, 0% 100%);
+    border-radius: 8px 0 0 8px;
+    background-image: linear-gradient(to left, var(--dpad-grad-2) 0%, var(--dpad-grad-1) 100%);
+}
+
+#dpad-right {
+    width: 70px;
+    height: 60px;
+    top: 50px;
+    right: -5px;
+    clip-path: polygon(30% 0%, 100% 0%, 100% 100%, 30% 100%, 0% 50%);
+    border-radius: 0 8px 8px 0;
+    background-image: linear-gradient(to right, var(--dpad-grad-2) 0%, var(--dpad-grad-1) 100%);
+}
+
+.dpad-center {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    top: 60px;
+    left: 60px;
+    background: transparent;
+    z-index: 1;
+}
+
+/* Action Button Styles */
+.button-grid {
+    display: grid;
+    grid-template-areas:
+        ". Y ."
+        "X . B"
+        ". A .";
+    gap: 15px;
+}
+
+.action-btn {
+    width: 70px;
+    height: 70px;
+    background-color: var(--btn-color);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 20px;
+    color: var(--btn-text);
+    box-shadow: 0 6px 0 var(--btn-shadow);
+    transition: transform 0.1s, box-shadow 0.1s;
+    cursor: pointer;
+}
+
+.action-btn:active, .action-btn.pressed {
+    transform: translateY(4px);
+    box-shadow: 0 2px 0 var(--btn-shadow);
+}
+
+/* Action Button Colors - Generic */
+#btn-south { grid-area: A; background-color: var(--btn-a); color: #ffffff; }
+#btn-east { grid-area: B; background-color: var(--btn-b); color: #ffffff; }
+#btn-west { grid-area: X; background-color: var(--btn-x); color: #ffffff; }
+#btn-north { grid-area: Y; background-color: var(--btn-y); color: var(--btn-text); }
+
+/* Theme nuanced color variables for layouts */
+:root {
+    --color-green: #107C10;
+    --color-red: #E81123;
+    --color-blue: #0078D7;
+    --color-yellow: #F2C80F;
+    --color-pink: #CD3D76;
+}
+
+.theme-light {
+    --color-green: #2e7d32;
+    --color-red: #d32f2f;
+    --color-blue: #1976d2;
+    --color-yellow: #fbc02d;
+    --color-pink: #c2185b;
+}
+
+.theme-retro {
+    --color-green: #408040;
+    --color-red: #a00000;
+    --color-blue: #4040a0;
+    --color-yellow: #a0a000;
+    --color-pink: #a040a0;
+}
+
+/* Specific Layout Styling */
+.layout-xbox #btn-south { background-color: var(--color-green); }
+.layout-xbox #btn-east { background-color: var(--color-red); }
+.layout-xbox #btn-west { background-color: var(--color-blue); }
+.layout-xbox #btn-north { background-color: var(--color-yellow); color: #000; }
+
+.layout-ps #btn-south { background-color: var(--color-blue); } /* Cross */
+.layout-ps #btn-east { background-color: var(--color-red); }  /* Circle */
+.layout-ps #btn-west { background-color: var(--color-pink); } /* Square */
+.layout-ps #btn-north { background-color: var(--color-green); } /* Triangle */
+.layout-ps .action-btn { font-family: 'Google Sans', sans-serif; font-size: 24px; }
+
+.layout-nintendo #btn-south { background-color: var(--color-red); }    /* B */
+.layout-nintendo #btn-east { background-color: var(--color-yellow); color: #000; } /* A */
+.layout-nintendo #btn-west { background-color: var(--color-green); }  /* Y */
+.layout-nintendo #btn-north { background-color: var(--color-blue); }   /* X */
+
+.layout-cardinal .action-btn { background-color: var(--btn-color); color: var(--btn-text); }
+
+/* Theme specific overrides for specific buttons if needed */
+.theme-retro .action-btn { background-color: var(--btn-a) !important; color: #ffffff !important; }
+
+/* Top Controls */
+#controls-top {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.control-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+}
+
+#status-indicator {
+    font-size: 10px;
+    background-color: rgba(0,0,0,0.6); /* Darker background for better contrast */
+    color: #ffffff;
+    padding: 2px 8px;
+    border-radius: 10px;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+
+/* Modal Styles */
+#settings-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: var(--bg-color);
+    padding: 20px 30px;
+    border-radius: 20px;
+    min-width: 320px;
+    max-width: 90vw;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    border: 1px solid var(--accent-color);
+}
+
+.modal-content h2 {
+    flex-shrink: 0;
+    margin: 0;
+}
+
+#close-settings {
+    flex-shrink: 0;
+}
+
+.settings-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow-y: auto;
+    padding-right: 10px;
+    margin: 5px 0;
+    /* Custom scrollbar for better hint */
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent-color) transparent;
+}
+
+.settings-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.settings-list::-webkit-scrollbar-thumb {
+    background-color: var(--accent-color);
+    border-radius: 10px;
+}
+
+/* Visual hint for scrollability */
+.settings-list {
+    border-top: 2px solid transparent;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.settings-list.scroll-top {
+    border-top-color: rgba(255,255,255,0.1);
+    box-shadow: inset 0 10px 10px -10px rgba(0,0,0,0.5);
+}
+
+.settings-list.scroll-bottom {
+    border-bottom-color: rgba(255,255,255,0.1);
+    box-shadow: inset 0 -10px 10px -10px rgba(0,0,0,0.5);
+}
+
+.settings-list.scroll-top.scroll-bottom {
+    box-shadow: inset 0 10px 10px -10px rgba(0,0,0,0.5), inset 0 -10px 10px -10px rgba(0,0,0,0.5);
+}
+
+.theme-light .settings-list.scroll-top {
+    border-top-color: rgba(0,0,0,0.1);
+    box-shadow: inset 0 10px 10px -10px rgba(0,0,0,0.1);
+}
+
+.theme-light .settings-list.scroll-bottom {
+    border-bottom-color: rgba(0,0,0,0.1);
+    box-shadow: inset 0 -10px 10px -10px rgba(0,0,0,0.1);
+}
+
+.theme-light .settings-list.scroll-top.scroll-bottom {
+    box-shadow: inset 0 10px 10px -10px rgba(0,0,0,0.1), inset 0 -10px 10px -10px rgba(0,0,0,0.1);
+}
+
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.setting-item label {
+    font-weight: bold;
+}
+
+select, button.primary-btn {
+    padding: 8px 16px;
+    border-radius: 8px;
+    background: var(--btn-color);
+    color: var(--btn-text);
+    border: 1px solid var(--accent-color);
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Orientation Suggestion Overlay */
+#orientation-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--bg-color);
+    z-index: 9999;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-color);
+    text-align: center;
+    padding: 20px;
+}
+
+.overlay-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.rotate-icon {
+    width: 40px;
+    height: 60px;
+    border: 3px solid #ffffff;
+    border-radius: 8px;
+    position: relative;
+    animation: rotate-animation 2s infinite ease-in-out;
+}
+
+.rotate-icon::after {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 2px;
+    background: #ffffff;
+    border-radius: 1px;
+}
+
+.theme-light .rotate-icon {
+    border-color: #333333;
+}
+
+.theme-light .rotate-icon::after {
+    background: #333333;
+}
+
+@keyframes rotate-animation {
+    0% { transform: rotate(0deg); }
+    50% { transform: rotate(90deg); }
+    100% { transform: rotate(90deg); }
+}
+
+#orientation-overlay p {
+    font-size: 1.2rem;
+    max-width: 250px;
+    line-height: 1.4;
+}
+
+@media screen and (orientation: portrait) {
+    #orientation-overlay {
+        display: flex;
+    }
+}
