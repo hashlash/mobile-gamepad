@@ -64,7 +64,7 @@ def process_input(client_id, data):
         # vgamepad expects y-axis to be inverted compared to typical screen coords
         # but our frontend already sends standard joystick coords.
         # vgamepad uses -1.0 to 1.0 for floats.
-        gamepad.left_joystick_float(x_value_float=x, y_value_float=-y)
+        gamepad.left_joystick_float(x_value_float=x, y_value_float=y)
         gamepad.update()
 
 # --- WebSocket Endpoint ---
